@@ -1,10 +1,11 @@
 class User < ApplicationRecord
   has_one_attached :avatar
-  has_many :booking_requests
+  has_many :booking_requests, dependent: :destroy
   has_many :tours, through: :booking_requests
-  has_many :comments
-  has_many :likes
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :liked_comments, through: :likes, source: :comment
+  has_many :ratings, dependent: :destroy
   attr_accessor :remember_token
   before_save {self.email = email.downcase}
   validates :name, presence: true, length: {maximum: 50}

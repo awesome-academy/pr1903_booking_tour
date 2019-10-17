@@ -17,7 +17,7 @@
       <div >
         <div class="col-sm-6" style="width:70px; height:auto">
           <% if user.avatar.attached? %>
-              <%= link_to image_tag(user.avatar, style:'width:100%'), users_path %>
+              <%= link_to image_tag(user.avatar, style:'width:100%'), admin_user_path(user) %>
           <% else %>
               <%= gravatar_for user, size: 50 %>
           <% end %>
@@ -27,7 +27,7 @@
         </div>
         </div>
         <div class="col-sm-6">
-          <%= user.name %>
+          <%= link_to user.name, admin_user_path(user) %>
         </div>
         <div class="col-sm-6">
           <%= user.email %>
@@ -37,7 +37,6 @@
         </div>
         <div class="col-sm-6">
           <%= user.updated_at %>
-        </div>
 
       </div>
       </li>
