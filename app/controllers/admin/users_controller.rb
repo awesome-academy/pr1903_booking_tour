@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user
+  before_action :admin_user
   def index
     @users = User.search(params[:name], params[:page])
   end
@@ -8,11 +8,15 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
   private
-  def set_user
-    unless current_user.admin?
-      redirect_to root_path
-    end
+  def admin_user
+      redirect_to(root_url) unless  current_user.admin?
   end
 
   def user_params
